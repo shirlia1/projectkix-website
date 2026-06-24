@@ -12,4 +12,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Outside the Lovable sandbox (e.g. on Vercel) the wrapper SKIPS the Nitro
+  // deploy plugin unless `nitro` is set explicitly — so `vite build` produced
+  // no server output and every route returned a 404. Forcing the Vercel preset
+  // makes Nitro emit Vercel's Build Output API (.vercel/output). Inside the
+  // Lovable sandbox the preset/output are forced back to Cloudflare, so Lovable
+  // previews are unaffected.
+  nitro: { preset: "vercel" },
 });

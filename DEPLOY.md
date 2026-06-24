@@ -8,16 +8,21 @@ Function rather than a static site.
 
 1. Push this branch to GitHub (already connected to Lovable).
 2. In Vercel, **Add New → Project** and import the repository.
-3. Vercel reads `vercel.json` automatically, which:
-   - sets the build command to `vite build`,
-   - installs with `bun install`,
-   - and sets `NITRO_PRESET=vercel` so Nitro emits Vercel's Build Output API
-     (`.vercel/output`) instead of the default Cloudflare target.
+3. Vercel reads `vercel.json` automatically (build command `vite build`,
+   install with `bun install`).
 4. Leave **Output Directory** on the default (auto-detected) and deploy.
 
-> The Lovable build config (`@lovable.dev/vite-tanstack-config`) is published to
-> a private registry. Vercel installs it from npm with no extra configuration —
-> no auth token is required for the public package.
+> **Why `nitro: { preset: "vercel" }` is in `vite.config.ts`:** Lovable's build
+> config (`@lovable.dev/vite-tanstack-config`) only runs the Nitro deploy plugin
+> when it detects the Lovable sandbox, *unless* you pass an explicit `nitro`
+> option. Without it, a Vercel build runs `vite build` successfully but emits no
+> server output, so every route returns `404: NOT_FOUND`. Forcing the `vercel`
+> preset makes Nitro write Vercel's Build Output API to `.vercel/output`, which
+> Vercel serves automatically. Inside the Lovable sandbox the preset is forced
+> back to Cloudflare, so Lovable previews are unaffected.
+
+> The Lovable build config is also published to the public npm registry, so
+> Vercel installs it with no auth token or extra configuration.
 
 ## Environment variables
 
