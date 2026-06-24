@@ -38,11 +38,11 @@ function ContactPage() {
             className="mt-10 card-soft p-8 space-y-5"
             onSubmit={(e) => { e.preventDefault(); setSent(true); }}
           >
-            <Field label="Name" id="name" />
-            <Field label="Email" id="email" type="email" />
+            <Field label="Name" id="name" autoComplete="name" />
+            <Field label="Email" id="email" type="email" autoComplete="email" />
             <div>
               <label htmlFor="message" className="block text-sm font-semibold text-ink">Message</label>
-              <textarea id="message" rows={5} required className="mt-2 w-full rounded-2xl border border-canvas bg-canvas px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand" />
+              <textarea id="message" name="message" rows={5} required className="mt-2 w-full rounded-2xl border border-canvas bg-canvas px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand" />
             </div>
             <button type="submit" className="btn-red">Send message</button>
           </form>
@@ -52,11 +52,11 @@ function ContactPage() {
   );
 }
 
-function Field({ label, id, type = "text" }: { label: string; id: string; type?: string }) {
+function Field({ label, id, type = "text", autoComplete }: { label: string; id: string; type?: string; autoComplete?: string }) {
   return (
     <div>
       <label htmlFor={id} className="block text-sm font-semibold text-ink">{label}</label>
-      <input id={id} type={type} required className="mt-2 w-full rounded-2xl border border-canvas bg-canvas px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand" />
+      <input id={id} name={id} type={type} required autoComplete={autoComplete} className="mt-2 w-full rounded-2xl border border-canvas bg-canvas px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand" />
     </div>
   );
 }

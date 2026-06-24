@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Package, ShoppingBag, Truck } from "lucide-react";
+import { useState } from "react";
+import { Package, ShoppingBag, Truck, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/contribute")({
   head: () => ({
@@ -12,6 +13,7 @@ export const Route = createFileRoute("/contribute")({
 });
 
 function ContributePage() {
+  const [sent, setSent] = useState(false);
   return (
     <div className="px-4 py-16">
       <div className="max-w-4xl mx-auto">
@@ -37,16 +39,27 @@ function ContributePage() {
           ))}
         </div>
 
-        <form className="mt-12 card-soft p-8 space-y-5" onSubmit={(e) => e.preventDefault()}>
-          <h2 className="text-2xl font-bold text-ink">Create your account</h2>
-          <div className="grid sm:grid-cols-2 gap-5">
-            <Field label="Full name" id="cname" />
-            <Field label="Email" id="cemail" type="email" />
-            <Field label="Address" id="caddr" />
-            <Field label="City / State / Zip" id="ccity" />
+        {sent ? (
+          <div className="mt-12 card-soft p-8 flex items-start gap-4">
+            <CheckCircle2 className="text-brand shrink-0" />
+            <div>
+              <h2 className="text-xl font-bold text-ink">Your bag is on its way!</h2>
+              <p className="mt-1 text-body">Thanks for joining ProjectKix. We'll email your prepaid mailing label and next steps within 2 business days.</p>
+              <button type="button" onClick={() => setSent(false)} className="mt-4 inline-flex items-center gap-1 text-brand font-semibold">Request another bag</button>
+            </div>
           </div>
-          <button type="submit" className="btn-red">Request my bag</button>
-        </form>
+        ) : (
+          <form className="mt-12 card-soft p-8 space-y-5" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+            <h2 className="text-2xl font-bold text-ink">Create your account</h2>
+            <div className="grid sm:grid-cols-2 gap-5">
+              <Field label="Full name" id="cname" autoComplete="name" />
+              <Field label="Email" id="cemail" type="email" autoComplete="email" />
+              <Field label="Address" id="caddr" autoComplete="street-address" />
+              <Field label="City / State / Zip" id="ccity" autoComplete="address-level2" />
+            </div>
+            <button type="submit" className="btn-red">Request my bag</button>
+          </form>
+        )}
 
         <p className="mt-8 text-sm text-body">
           Looking to run a drive for your company or school? <Link to="/partners" className="text-brand font-semibold">Become a partner →</Link>
@@ -56,11 +69,11 @@ function ContributePage() {
   );
 }
 
-function Field({ label, id, type = "text" }: { label: string; id: string; type?: string }) {
+function Field({ label, id, type = "text", autoComplete }: { label: string; id: string; type?: string; autoComplete?: string }) {
   return (
     <div>
       <label htmlFor={id} className="block text-sm font-semibold text-ink">{label}</label>
-      <input id={id} type={type} required className="mt-2 w-full rounded-2xl border border-canvas bg-canvas px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand" />
+      <input id={id} name={id} type={type} required autoComplete={autoComplete} className="mt-2 w-full rounded-2xl border border-canvas bg-canvas px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand" />
     </div>
   );
 }

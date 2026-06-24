@@ -53,6 +53,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#E63950" },
       { title: "ProjectKix™ — Give your sneakers a new purpose" },
       { name: "description", content: "ProjectKix collects and recycles gently used sneakers to fund disabled athletes nationwide." },
       { property: "og:title", content: "ProjectKix™ — Give your sneakers a new purpose" },
@@ -66,6 +67,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -94,8 +98,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col bg-canvas">
+        <a href="#main" className="skip-link">Skip to content</a>
         <Nav />
-        <main className="flex-1"><Outlet /></main>
+        <main id="main" className="flex-1"><Outlet /></main>
         <Footer />
         <Mascot />
       </div>
