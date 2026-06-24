@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #E63950;
+  --color-brand-dark: #c52d42;
+  --color-ink: #2D2A2B;
+  --color-jet: #111111;
+  --color-body: #6E6E73;
+  --color-canvas: #F2F3F7;
+  --color-surface: #FFFFFF;
+  --font-sans: "Poppins", system-ui, sans-serif;
+  --font-display: "Poppins", system-ui, sans-serif;
+}
+
+html, body {
+  background-color: #F2F3F7;
+  color: #2D2A2B;
+  font-family: "Poppins", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@utility btn-red {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #E63950;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  transition: background-color .2s, transform .2s, box-shadow .2s;
+  box-shadow: 0 8px 20px -8px rgba(230,57,80,.5);
+  &:hover { background-color: #c52d42; transform: translateY(-1px); }
+  &:focus-visible { outline: 3px solid #E63950; outline-offset: 3px; }
+}
+
+@utility btn-black {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #111;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.7rem 1.4rem;
+  border-radius: 9999px;
+  transition: background-color .2s, transform .2s;
+  &:hover { background-color: #000; transform: translateY(-1px); }
+  &:focus-visible { outline: 3px solid #E63950; outline-offset: 3px; }
+}
+
+@utility card-soft {
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px -30px rgba(20,20,30,.18), 0 2px 6px -2px rgba(20,20,30,.06);
+}
+
+@utility nav-link {
+  color: #2D2A2B;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.4rem 0.2rem;
+  transition: color .2s;
+  &:hover { color: #E63950; }
+  &[data-status="active"] { color: #E63950; font-weight: 600; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
