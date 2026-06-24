@@ -21,11 +21,35 @@ Function rather than a static site.
 
 ## Environment variables
 
-No runtime secrets are required today. The contact and "request a bag" forms
-are front-end only (they show a confirmation state). To capture real
-submissions, wire them to a form backend (e.g. Formspree, Resend, or a Vercel
-serverless route) and add the corresponding keys in **Project → Settings →
-Environment Variables**.
+The Contact form and the Contribute "request a bag" form submit to server
+functions (`src/lib/forms.ts`) that email each submission to you via
+[Resend](https://resend.com). Add these in **Project → Settings → Environment
+Variables** (for Production, Preview, and Development):
+
+| Variable | Required | Description |
+| --- | --- | --- |
+| `RESEND_API_KEY` | ✅ | Your Resend API key — create one at https://resend.com/api-keys |
+| `CONTACT_TO_EMAIL` | ✅ | The inbox that receives submissions, e.g. `shirbeny1@gmail.com` |
+| `CONTACT_FROM_EMAIL` | optional | The "from" address, e.g. `ProjectKix <hello@yourdomain.com>`. Must be a sender on a **verified domain** in Resend. If omitted, the shared test sender `onboarding@resend.dev` is used. |
+
+### Getting Resend ready (≈5 minutes)
+
+1. Sign up at https://resend.com (free tier: 3,000 emails/month, 100/day).
+2. Create an API key → copy it into `RESEND_API_KEY`.
+3. Set `CONTACT_TO_EMAIL` to the address where you want submissions delivered.
+4. **Quick start without a domain:** leave `CONTACT_FROM_EMAIL` unset. Resend's
+   test sender (`onboarding@resend.dev`) only delivers to the email address on
+   your own Resend account, so make `CONTACT_TO_EMAIL` that same address.
+5. **For real/production use:** in Resend, verify your domain (add the DNS
+   records they give you), then set `CONTACT_FROM_EMAIL` to an address on that
+   domain. You can then deliver to any inbox.
+
+After adding or changing variables, redeploy so the new values take effect.
+
+> Submissions arrive as an email with the sender's details, and the visitor's
+> email is set as the `Reply-To`, so you can reply to them directly. Nothing is
+> stored in a database; the email *is* the record. If you later want a stored
+> copy too, you can add a webhook/spreadsheet step without touching the UI.
 
 ## Local development
 

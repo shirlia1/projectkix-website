@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Loader2 } from "lucide-react";
+import { sendContactMessage } from "@/lib/forms";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -14,6 +15,32 @@ export const Route = createFileRoute("/contact")({
 
 function ContactPage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setSending(true);
+    setError(null);
+    try {
+      await sendContactMessage({
+        data: {
+          name: String(fd.get("name") ?? ""),
+          email: String(fd.get("email") ?? ""),
+          message: String(fd.get("message") ?? ""),
+        },
+      });
+      setSent(true);
+      form.reset();
+    } catch {
+      setError("Something went wrong sending your message. Please try again.");
+    } finally {
+      setSending(false);
+    }
+  }
+
   return (
     <div className="px-4 py-16">
       <div className="max-w-3xl mx-auto">
@@ -34,17 +61,17 @@ function ContactPage() {
             </div>
           </div>
         ) : (
-          <form
-            className="mt-10 card-soft p-8 space-y-5"
-            onSubmit={(e) => { e.preventDefault(); setSent(true); }}
-          >
+          <form className="mt-10 card-soft p-8 space-y-5" onSubmit={handleSubmit}>
             <Field label="Name" id="name" autoComplete="name" />
             <Field label="Email" id="email" type="email" autoComplete="email" />
             <div>
               <label htmlFor="message" className="block text-sm font-semibold text-ink">Message</label>
               <textarea id="message" name="message" rows={5} required className="mt-2 w-full rounded-2xl border border-canvas bg-canvas px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-brand" />
             </div>
-            <button type="submit" className="btn-red">Send message</button>
+            {error && <p role="alert" className="text-sm font-semibold text-brand">{error}</p>}
+            <button type="submit" disabled={sending} className="btn-red disabled:opacity-70">
+              {sending ? <><Loader2 size={18} className="animate-spin" /> Sending…</> : "Send message"}
+            </button>
           </form>
         )}
       </div>

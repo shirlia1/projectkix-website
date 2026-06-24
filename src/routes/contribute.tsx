@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Package, ShoppingBag, Truck, CheckCircle2 } from "lucide-react";
+import { Package, ShoppingBag, Truck, CheckCircle2, Loader2 } from "lucide-react";
+import { requestBag } from "@/lib/forms";
 
 export const Route = createFileRoute("/contribute")({
   head: () => ({
@@ -14,6 +15,33 @@ export const Route = createFileRoute("/contribute")({
 
 function ContributePage() {
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    setSending(true);
+    setError(null);
+    try {
+      await requestBag({
+        data: {
+          name: String(fd.get("cname") ?? ""),
+          email: String(fd.get("cemail") ?? ""),
+          address: String(fd.get("caddr") ?? ""),
+          cityStateZip: String(fd.get("ccity") ?? ""),
+        },
+      });
+      setSent(true);
+      form.reset();
+    } catch {
+      setError("Something went wrong submitting your request. Please try again.");
+    } finally {
+      setSending(false);
+    }
+  }
+
   return (
     <div className="px-4 py-16">
       <div className="max-w-4xl mx-auto">
@@ -49,7 +77,7 @@ function ContributePage() {
             </div>
           </div>
         ) : (
-          <form className="mt-12 card-soft p-8 space-y-5" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+          <form className="mt-12 card-soft p-8 space-y-5" onSubmit={handleSubmit}>
             <h2 className="text-2xl font-bold text-ink">Create your account</h2>
             <div className="grid sm:grid-cols-2 gap-5">
               <Field label="Full name" id="cname" autoComplete="name" />
@@ -57,7 +85,10 @@ function ContributePage() {
               <Field label="Address" id="caddr" autoComplete="street-address" />
               <Field label="City / State / Zip" id="ccity" autoComplete="address-level2" />
             </div>
-            <button type="submit" className="btn-red">Request my bag</button>
+            {error && <p role="alert" className="text-sm font-semibold text-brand">{error}</p>}
+            <button type="submit" disabled={sending} className="btn-red disabled:opacity-70">
+              {sending ? <><Loader2 size={18} className="animate-spin" /> Sending…</> : "Request my bag"}
+            </button>
           </form>
         )}
 
