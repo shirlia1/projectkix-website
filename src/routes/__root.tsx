@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { Mascot } from "../components/Mascot";
+import { ConversionPopup } from "../components/ConversionPopup";
 import { siteUrl } from "../lib/seo";
 
 function NotFoundComponent() {
@@ -165,6 +166,7 @@ function RootComponent() {
         </main>
         <Footer />
         <Mascot />
+        <ConversionPopup />
       </div>
     </QueryClientProvider>
   );
