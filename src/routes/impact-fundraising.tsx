@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { QrCode, Megaphone, Truck } from "lucide-react";
+import { canonical } from "@/lib/seo";
 
 export const Route = createFileRoute("/impact-fundraising")({
   head: () => ({
@@ -7,6 +8,7 @@ export const Route = createFileRoute("/impact-fundraising")({
       { title: "Impact & Fundraising — ProjectKix" },
       { name: "description", content: "Partner with ProjectKix: corporate QR-code program funding disabled athletes and charities of your choice." },
     ],
+    links: canonical("/impact-fundraising"),
   }),
   component: ImpactPage,
 });

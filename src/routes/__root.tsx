@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { Mascot } from "../components/Mascot";
+import { siteUrl } from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -51,9 +52,8 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => {
     // Local OG/Twitter card image (no external dependency). Social scrapers
-    // require an absolute URL, so prefix with VITE_SITE_URL when it's set
-    // (e.g. "https://projectkix.com"); otherwise fall back to a relative path.
-    const siteUrl = (import.meta.env.VITE_SITE_URL ?? "").replace(/\/$/, "");
+    // require an absolute URL, so `siteUrl` (from VITE_SITE_URL) is prefixed when
+    // set; otherwise it falls back to a relative path.
     const ogImage = `${siteUrl}/og-image.png`;
     const jsonLd = {
       "@context": "https://schema.org",

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Package, ShoppingBag, Truck, CheckCircle2, Loader2 } from "lucide-react";
 import { requestBag } from "@/lib/forms";
+import { canonical } from "@/lib/seo";
 
 export const Route = createFileRoute("/contribute")({
   head: () => ({
@@ -9,6 +10,7 @@ export const Route = createFileRoute("/contribute")({
       { title: "Contribute Sneakers — ProjectKix" },
       { name: "description", content: "Request a free prepaid mailing bag and turn your old sneakers into funds for disabled athletes." },
     ],
+    links: canonical("/contribute"),
   }),
   component: ContributePage,
 });

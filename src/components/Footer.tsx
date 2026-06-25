@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Facebook, Instagram } from "lucide-react";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -29,8 +29,6 @@ export function Footer() {
           <div className="flex gap-3">
             <a href="https://www.instagram.com/projectkixsneakers/" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white/10 hover:bg-brand inline-flex items-center justify-center transition"><Instagram size={18} /></a>
             <a href="https://www.facebook.com/ProjectKixSneakers/" target="_blank" rel="noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white/10 hover:bg-brand inline-flex items-center justify-center transition"><Facebook size={18} /></a>
-            <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-white/10 hover:bg-brand inline-flex items-center justify-center transition"><Linkedin size={18} /></a>
-            <a href="#" aria-label="TikTok" className="w-10 h-10 rounded-full bg-white/10 hover:bg-brand inline-flex items-center justify-center transition text-xs font-bold">TT</a>
           </div>
         </div>
       </div>

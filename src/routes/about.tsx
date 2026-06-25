@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { canonical } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -6,6 +7,7 @@ export const Route = createFileRoute("/about")({
       { title: "About Us — ProjectKix" },
       { name: "description", content: "ProjectKix's mission, story, and goal to support 100,000 disabled athletes in under 5 years." },
     ],
+    links: canonical("/about"),
   }),
   component: AboutPage,
 });
