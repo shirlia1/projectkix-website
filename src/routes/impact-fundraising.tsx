@@ -31,7 +31,7 @@ function ImpactPage() {
             { icon: Megaphone, title: "Marketing support", desc: "We provide branded posters, social assets, and email templates to make your drive a success." },
             { icon: Truck, title: "Shipping covered", desc: "Prepaid bags and FedEx drop-off — no logistics for you to manage." },
           ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="card-soft p-6">
+            <div key={title} className="card-soft card-hover p-6">
               <div className="w-12 h-12 rounded-full bg-brand text-white flex items-center justify-center"><Icon size={22} /></div>
               <h3 className="mt-4 text-lg font-bold text-ink">{title}</h3>
               <p className="mt-2 text-body text-sm">{desc}</p>

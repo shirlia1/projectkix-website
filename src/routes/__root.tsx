@@ -4,10 +4,12 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -127,6 +129,30 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function PageTransition({ children }: { children: ReactNode }) {
+  const reduce = useReducedMotion();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  // Skip the animation on the very first render so it doesn't delay the initial
+  // paint / LCP; only animate on subsequent client-side navigations.
+  const firstRender = useRef(true);
+  const isFirst = firstRender.current;
+  useEffect(() => {
+    firstRender.current = false;
+  }, []);
+
+  if (reduce) return <>{children}</>;
+  return (
+    <motion.div
+      key={pathname}
+      initial={isFirst ? false : { opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   return (
@@ -134,7 +160,9 @@ function RootComponent() {
       <div className="min-h-screen flex flex-col bg-canvas">
         <a href="#main" className="skip-link">Skip to content</a>
         <Nav />
-        <main id="main" tabIndex={-1} className="flex-1 outline-none"><Outlet /></main>
+        <main id="main" tabIndex={-1} className="flex-1 outline-none">
+          <PageTransition><Outlet /></PageTransition>
+        </main>
         <Footer />
         <Mascot />
       </div>

@@ -1,6 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Recycle, HeartHandshake, Wallet, Globe, Facebook, Instagram, Package, ShoppingBag, Truck } from "lucide-react";
 import { canonical } from "@/lib/seo";
+import { Reveal } from "@/components/motion/Reveal";
+import { Stats } from "@/components/sections/Stats";
+import { TrustStrip } from "@/components/sections/TrustStrip";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { GetInvolved } from "@/components/sections/GetInvolved";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -38,16 +43,22 @@ function HomePage() {
         </div>
       </section>
 
+      {/* TRUST STRIP */}
+      <TrustStrip />
+
       {/* WHY EXISTS */}
       <section className="bg-white py-20 px-4">
-        <div className="max-w-3xl mx-auto text-center">
+        <Reveal className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-ink">Why Project Kix Exists</h2>
           <p className="mt-5 text-body text-lg">
             ProjectKix makes it socially and financially rewarding to join the circular economy. We provide free recycling programs for individuals and organizations, making it easy to turn sneakers into funds, resources, and opportunities.
           </p>
           <Link to="/about" className="btn-red mt-8">Learn More</Link>
-        </div>
+        </Reveal>
       </section>
+
+      {/* IMPACT STATS */}
+      <Stats />
 
       {/* BANNER + CARDS */}
       <section className="relative">
@@ -56,27 +67,29 @@ function HomePage() {
             className="absolute inset-0 bg-cover bg-center opacity-40"
             style={{ backgroundImage: "url('/hero.webp')" }}
           />
-          <div className="relative max-w-4xl mx-auto h-full flex flex-col justify-center items-center text-center px-6 text-white">
+          <Reveal className="relative max-w-4xl mx-auto h-full flex flex-col justify-center items-center text-center px-6 text-white">
             <h2 className="text-3xl sm:text-5xl font-extrabold">A Simple Way to Make a Big Impact</h2>
             <p className="mt-4 text-lg font-semibold max-w-2xl">Together, we're creating a sustainable future — one pair of sneakers at a time.</p>
-          </div>
+          </Reveal>
         </div>
         <div className="max-w-6xl mx-auto px-4 -mt-24 relative z-10 grid md:grid-cols-3 gap-6">
           {[
             { icon: Recycle, title: "Go Green", desc: "Keep sneakers out of landfills and reduce waste." },
             { icon: HeartHandshake, title: "Support Charities", desc: "Fund adaptive sports programs, local non-profits, or global initiatives." },
             { icon: Wallet, title: "Earn Money", desc: "Find opportunities for people to contribute their sneakers." },
-          ].map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="card-soft overflow-hidden">
-              <div className="bg-brand py-8 flex justify-center">
-                <Icon size={48} className="text-white" />
+          ].map(({ icon: Icon, title, desc }, i) => (
+            <Reveal key={title} delay={i * 0.08} className="h-full">
+              <div className="card-soft card-hover overflow-hidden h-full">
+                <div className="bg-brand py-8 flex justify-center">
+                  <Icon size={48} className="text-white" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-ink">{title}</h3>
+                  <p className="mt-2 text-body">{desc}</p>
+                  <Link to="/about" className="mt-4 inline-flex items-center gap-1 text-brand font-semibold hover:gap-2 transition-all">→ Read more</Link>
+                </div>
               </div>
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-ink">{title}</h3>
-                <p className="mt-2 text-body">{desc}</p>
-                <Link to="/about" className="mt-4 inline-flex items-center gap-1 text-brand font-semibold hover:gap-2 transition-all">→ Read more</Link>
-              </div>
-            </div>
+            </Reveal>
           ))}
         </div>
         <div className="text-center mt-10">
@@ -87,7 +100,7 @@ function HomePage() {
       {/* OUR WHY */}
       <section className="py-24 px-4">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
-          <div>
+          <Reveal>
             <h2 className="text-3xl sm:text-4xl font-extrabold text-ink">Our Why</h2>
             <div className="mt-8 space-y-8">
               <Block title="Our Mission" body="At ProjectKix, we're on a mission to give unwanted sneakers a second chance — creating a sustainable future and empowering communities. By recycling sneakers, we provide funding for adaptive sports programs, support local charities, and reduce landfill waste." />
@@ -95,7 +108,7 @@ function HomePage() {
               <Block title="A Greener Future, One Sneaker at a Time" body="Did you know sneakers can take up to 40 years to decompose in landfills? By recycling with ProjectKix, you're reducing waste, lowering CO2 emissions, and contributing to a circular economy." />
             </div>
             <Link to="/about" className="btn-red mt-8">Learn More</Link>
-          </div>
+          </Reveal>
           <div className="grid gap-5">
             {[
               { src: "/gallery/booth.webp", alt: "ProjectKix donation booth at LA Fitness", w: 1200, h: 1600 },
@@ -104,37 +117,49 @@ function HomePage() {
               { src: "/gallery/warriors.webp", alt: "Wounded Warrior athletes", w: 1200, h: 1246 },
               { src: "/gallery/certificate.webp", alt: "Certificate of appreciation presentation", w: 970, h: 1222 },
             ].map(({ src, alt, w, h }, i) => (
-              <div key={i} className="overflow-hidden rounded-3xl card-soft bg-white">
-                <img src={src} alt={alt} width={w} height={h} className="w-full h-auto object-contain" loading="lazy" decoding="async" />
-              </div>
+              <Reveal key={i} delay={i * 0.06}>
+                <div className="group overflow-hidden rounded-3xl card-soft card-hover bg-white">
+                  <img src={src} alt={alt} width={w} height={h} className="w-full h-auto object-contain transition-transform duration-500 ease-out group-hover:scale-[1.04]" loading="lazy" decoding="async" />
+                </div>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
+      {/* TESTIMONIALS */}
+      <Testimonials />
+
       {/* 3 STEPS */}
       <section className="py-24 px-4 bg-white">
         <div className="max-w-6xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-ink">3 Simple Steps to Make a Difference</h2>
+          <Reveal>
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-ink">3 Simple Steps to Make a Difference</h2>
+          </Reveal>
           <div className="mt-12 grid md:grid-cols-3 gap-6">
             {[
               { icon: Package, title: "Request a bag", desc: "Create a ProjectKix account and request a free prepaid mailing bag." },
               { icon: ShoppingBag, title: "Fill it up", desc: "Fill the bag with up to 7 pairs of wearable sneakers." },
               { icon: Truck, title: "Drop and forget", desc: "Any FedEx location works. We take it from there." },
             ].map(({ icon: Icon, title, desc }, i) => (
-              <div key={title} className="card-soft p-8 text-left">
-                <div className="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center text-brand">
-                  <Icon size={32} />
+              <Reveal key={title} delay={i * 0.08} className="h-full">
+                <div className="card-soft card-hover p-8 text-left h-full">
+                  <div className="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center text-brand">
+                    <Icon size={32} />
+                  </div>
+                  <div className="mt-4 text-sm font-bold text-brand">STEP {i + 1}</div>
+                  <h3 className="mt-1 text-xl font-bold text-ink">{title}</h3>
+                  <p className="mt-2 text-body">{desc}</p>
                 </div>
-                <div className="mt-4 text-sm font-bold text-brand">STEP {i + 1}</div>
-                <h3 className="mt-1 text-xl font-bold text-ink">{title}</h3>
-                <p className="mt-2 text-body">{desc}</p>
-              </div>
+              </Reveal>
             ))}
           </div>
           <Link to="/contribute" className="btn-red mt-12">Request a bag</Link>
         </div>
       </section>
+
+      {/* GET INVOLVED (conversion) */}
+      <GetInvolved />
     </div>
   );
 }
