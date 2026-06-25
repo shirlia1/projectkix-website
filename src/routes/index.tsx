@@ -54,7 +54,7 @@ function HomePage() {
         <div className="relative h-[420px] sm:h-[460px] bg-ink overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center opacity-40"
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1600')" }}
+            style={{ backgroundImage: "url('/hero.jpg')" }}
           />
           <div className="relative max-w-4xl mx-auto h-full flex flex-col justify-center items-center text-center px-6 text-white">
             <h2 className="text-3xl sm:text-5xl font-extrabold">A Simple Way to Make a Big Impact</h2>

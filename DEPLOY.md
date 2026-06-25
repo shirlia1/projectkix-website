@@ -24,15 +24,25 @@ Function rather than a static site.
 > The Lovable build config is also published to the public npm registry, so
 > Vercel installs it with no auth token or extra configuration.
 
-## Gallery images
+## Images (fully self-contained — no external hosts)
 
-The homepage gallery is fully self-contained: `src/routes/index.tsx` references
-the images directly from `public/gallery/` (e.g. `/gallery/booth.jpg`), with no
-dependency on Lovable or R2.
+All images are served from `public/`, with no dependency on Lovable, R2, or
+Unsplash. Upload these files (exact, case-sensitive names):
 
-Drop these five files into `public/gallery/` (exact, case-sensitive names):
+**`public/gallery/`** — homepage gallery grid (referenced in `src/routes/index.tsx`):
 `booth.jpg`, `champions.png`, `lafitness.png`, `warriors.png`,
 `certificate.png`. See `public/gallery/README.md` for what each one is.
+
+**`public/`** — top-level:
+- `hero.jpg` — the banner background photo on the homepage (replaces the old
+  Unsplash URL). Landscape, ~1600px wide works well.
+- `og-image.png` — the social-share card image (Open Graph / Twitter).
+  ~1200×630px. Optional: if absent, the site still works; only the social
+  preview thumbnail is affected.
+
+> **Social previews:** `og:image` must be an absolute URL for Facebook /
+> LinkedIn / Twitter / Slack to render it. Set `VITE_SITE_URL` (below) to your
+> deployed origin so the tag becomes `https://your-domain/og-image.png`.
 
 ## Environment variables
 
@@ -46,6 +56,7 @@ Variables** (for Production, Preview, and Development):
 | `RESEND_API_KEY` | ✅ | Your Resend API key — create one at https://resend.com/api-keys |
 | `CONTACT_TO_EMAIL` | ✅ | The inbox that receives submissions, e.g. `shirbeny1@gmail.com` |
 | `CONTACT_FROM_EMAIL` | optional | The "from" address, e.g. `ProjectKix <hello@yourdomain.com>`. Must be a sender on a **verified domain** in Resend. If omitted, the shared test sender `onboarding@resend.dev` is used. |
+| `VITE_SITE_URL` | optional | Your deployed origin, e.g. `https://projectkix.com`. Used to make the `og:image` URL absolute so social-share previews render. Build-time variable. |
 
 ### Getting Resend ready (≈5 minutes)
 
