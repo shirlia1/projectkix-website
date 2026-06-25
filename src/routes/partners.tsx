@@ -26,20 +26,20 @@ function PartnersPage() {
 
         <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="card-soft h-24 flex items-center justify-center text-body font-bold text-sm">
+            <div key={i} className="card-soft card-hover h-24 flex items-center justify-center text-body font-bold text-sm">
               Partner {i + 1}
             </div>
           ))}
         </div>
 
         <div className="mt-16 grid md:grid-cols-2 gap-8">
-          <div className="card-soft p-8">
+          <div className="card-soft card-hover p-8">
             <h3 className="text-2xl font-extrabold text-ink">Corporate partners</h3>
             <p className="mt-3 text-body">
               Run a sneaker drive across your offices and turn employee engagement into measurable social impact. We'll handle the logistics; you choose the cause.
             </p>
           </div>
-          <div className="card-soft p-8">
+          <div className="card-soft card-hover p-8">
             <h3 className="text-2xl font-extrabold text-ink">Affiliate program</h3>
             <p className="mt-3 text-body">
               Schools, teams and community groups: earn funds for your organization while keeping sneakers out of landfills.

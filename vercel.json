@@ -1,5 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "node scripts/gen-seo.mjs && vite build",
-  "installCommand": "bun install"
+  "installCommand": "bun install --no-frozen-lockfile"
 }
