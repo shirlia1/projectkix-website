@@ -9,6 +9,20 @@ try {
   const base = (process.env.VITE_SITE_URL ?? "").replace(/\/+$/, "");
   const loc = (path) => `${base}${path}`;
 
+  // Keep blog slugs in sync with src/lib/blog.ts (articles[].slug).
+  const blogSlugs = [
+    "how-shoe-donations-create-impact",
+    "sneaker-recycling-how-it-works",
+    "what-are-adaptive-sports",
+    "wheelchair-basketball-and-your-sneakers",
+    "why-gyms-make-great-sneaker-drive-partners",
+    "sneaker-drives-for-schools",
+    "sneaker-recycling-corporate-social-responsibility",
+    "sustainable-footwear-make-sneakers-last",
+    "what-happens-after-you-donate-sneakers",
+    "how-to-host-a-shoe-drive",
+  ];
+
   const routes = [
     { path: "/", changefreq: "weekly", priority: "1.0" },
     { path: "/about", changefreq: "monthly", priority: "0.8" },
@@ -17,6 +31,7 @@ try {
     { path: "/partners", changefreq: "monthly", priority: "0.7" },
     { path: "/blogs", changefreq: "weekly", priority: "0.6" },
     { path: "/contact", changefreq: "monthly", priority: "0.7" },
+    ...blogSlugs.map((slug) => ({ path: `/blogs/${slug}`, changefreq: "monthly", priority: "0.6" })),
   ];
 
   const urls = routes
