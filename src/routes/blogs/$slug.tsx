@@ -97,7 +97,25 @@ function ArticleBlock({ block }: { block: Block }) {
       </ul>
     );
   }
-  return <p className="mt-4 text-body text-lg leading-relaxed">{block.text}</p>;
+  return (
+    <p className="mt-4 text-body text-lg leading-relaxed">
+      {block.spans
+        ? block.spans.map((span, i) =>
+            typeof span === "string" ? (
+              span
+            ) : (
+              <Link
+                key={i}
+                to={span.to}
+                className="font-semibold text-brand underline decoration-brand/30 underline-offset-2 hover:decoration-brand"
+              >
+                {span.label}
+              </Link>
+            ),
+          )
+        : block.text}
+    </p>
+  );
 }
 
 function ArticlePage() {

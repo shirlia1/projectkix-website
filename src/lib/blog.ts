@@ -3,8 +3,14 @@
 
 export type FAQ = { q: string; a: string };
 
+/** Internal routes we link to contextually from article prose. */
+export type LinkTarget = "/contact" | "/contribute" | "/partners";
+
+/** A run of prose: plain text, or an inline internal link. */
+export type Inline = string | { to: LinkTarget; label: string };
+
 export type Block =
-  | { type: "p"; text: string }
+  | { type: "p"; text?: string; spans?: Inline[] }
   | { type: "h2"; text: string }
   | { type: "ul"; items: string[] };
 
@@ -52,7 +58,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Why it adds up" },
       { type: "p", text: "Individually, one donation feels small. Collectively, sneaker drives across schools, gyms, and workplaces add up to thousands of pairs and meaningful funding. That is the quiet power of recycling footwear at scale: ordinary closets become a steady source of support for extraordinary athletes." },
       { type: "h2", text: "Getting started is intentionally simple" },
-      { type: "p", text: "We made the process as frictionless as possible. Request a free prepaid bag, fill it with up to seven pairs of wearable sneakers, and drop it at any FedEx location. We handle everything after that, so your good intention never gets stuck in logistics." },
+      { type: "p", spans: ["We made the process as frictionless as possible. You can ", { to: "/contribute", label: "request a donation bag" }, " in under a minute, fill it with up to seven pairs of wearable sneakers, and drop it at any FedEx location. We handle everything after that, so your good intention never gets stuck in logistics."] },
     ],
     faqs: [
       { q: "What condition do the sneakers need to be in?", a: "They should be wearable, meaning no major damage, holes, or missing soles. Gently used is perfect." },
@@ -81,7 +87,7 @@ export const articles: Article[] = [
         "Reusing a pair avoids the carbon and resources required to manufacture a new one.",
       ] },
       { type: "h2", text: "Recycling that funds something bigger" },
-      { type: "p", text: "What sets a ProjectKix drive apart is that recycling is also fundraising. The same act that keeps sneakers out of landfills generates support for disabled athletes and the charities our partners choose. Doing right by the planet and doing right by people become the same simple decision." },
+      { type: "p", spans: ["What sets a ProjectKix drive apart is that recycling is also fundraising. The same act that keeps sneakers out of landfills generates support for disabled athletes and the charities our partners choose. When you are ready, you can ", { to: "/contribute", label: "donate shoes" }, " or ", { to: "/partners", label: "host a shoe drive" }, " for your community."] },
     ],
     faqs: [
       { q: "Can worn-out sneakers be recycled too?", a: "Wearable pairs are prioritized for reuse. Pairs past their life are handled responsibly so materials are not simply landfilled." },
@@ -111,7 +117,7 @@ export const articles: Article[] = [
         "Every dollar raised from recycled sneakers can go directly toward access.",
       ] },
       { type: "h2", text: "How your sneakers fit in" },
-      { type: "p", text: "When you recycle sneakers through ProjectKix, the funds generated help support adaptive sports programs and the athletes in them. Something as ordinary as cleaning out your closet becomes part of getting someone back in the game." },
+      { type: "p", spans: ["When you recycle sneakers through ProjectKix, the funds generated help ", { to: "/contribute", label: "support adaptive athletes" }, " and the programs they rely on. Something as ordinary as cleaning out your closet becomes part of getting someone back in the game."] },
     ],
     faqs: [
       { q: "Who can take part in adaptive sports?", a: "Athletes with a wide range of physical disabilities, at every level from first-timers to elite competitors." },
@@ -141,7 +147,7 @@ export const articles: Article[] = [
         "Recycled sneakers turn idle footwear into court time.",
       ] },
       { type: "h2", text: "Turn a closet clean-out into a game day" },
-      { type: "p", text: "Every ProjectKix bag of sneakers becomes funding that can help athletes get on the court. Request a free bag, or rally your team, gym, or company to run a drive together." },
+      { type: "p", spans: ["Every ProjectKix bag of sneakers becomes funding that can help athletes get on the court. You can ", { to: "/contribute", label: "donate shoes" }, ", or ", { to: "/partners", label: "host a shoe drive" }, " with your team, gym, or company."] },
     ],
     faqs: [
       { q: "Why is wheelchair basketball so expensive?", a: "Sport wheelchairs are custom equipment, and teams also pay for travel, league fees, and facility time." },
@@ -172,7 +178,7 @@ export const articles: Article[] = [
       { type: "h2", text: "How a gym drive works" },
       { type: "p", text: "We provide everything you need to get started, including collection materials and prepaid shipping. You provide the floor space and a friendly mention to members. The result is a steady stream of sneakers that funds adaptive sports and keeps waste out of landfills." },
       { type: "h2", text: "Ready to set one up?" },
-      { type: "p", text: "Gyms across the country already host ProjectKix drives. Becoming a partner takes one conversation, and we handle the rest." },
+      { type: "p", spans: ["Gyms across the country already host ProjectKix drives. You can ", { to: "/partners", label: "partner with ProjectKix" }, " in one conversation, and we handle the rest."] },
     ],
     faqs: [
       { q: "Does hosting a drive cost the gym anything?", a: "No. We provide collection materials and prepaid shipping. The gym provides the space and a little visibility." },
@@ -203,7 +209,7 @@ export const articles: Article[] = [
       { type: "h2", text: "A story worth telling" },
       { type: "p", text: "One fifth-grade class that ran a drive had no idea where it would lead, and ended up funding real equipment for athletes. That is the kind of outcome that turns a classroom project into a memory and a lifelong habit of giving." },
       { type: "h2", text: "Start your school drive" },
-      { type: "p", text: "We make it simple for schools to take part, with materials and prepaid shipping included. Get in touch and we will help you plan a drive your students will remember." },
+      { type: "p", spans: ["We make it simple for schools to take part, with materials and prepaid shipping included. ", { to: "/partners", label: "Host a shoe drive" }, " with us, or ", { to: "/contact", label: "get in touch" }, " and we will help you plan a drive your students will remember."] },
     ],
     faqs: [
       { q: "What age groups can participate?", a: "Any. Elementary classes, middle and high school clubs, and university groups all run successful drives." },
@@ -234,7 +240,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Built for busy teams" },
       { type: "p", text: "As a corporate partner you receive support with materials, marketing, and shipping, so the program runs without adding to anyone's workload. A unique code can connect every contribution back to your company and its chosen cause." },
       { type: "h2", text: "Make it part of your next initiative" },
-      { type: "p", text: "Whether it is a one-time campaign or an ongoing program, a sneaker drive is a CSR win that is refreshingly simple to deliver. Let us help you launch one." },
+      { type: "p", spans: ["Whether it is a one-time campaign or an ongoing program, a sneaker drive is a CSR win that is refreshingly simple to deliver. ", { to: "/partners", label: "Partner with ProjectKix" }, " and we will help you launch one."] },
     ],
     faqs: [
       { q: "Is this suitable for a distributed or hybrid workforce?", a: "Yes. Employees can request bags individually or collect at offices, making it flexible for any setup." },
@@ -265,7 +271,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Then keep them in circulation" },
       { type: "p", text: "Eventually every pair is ready to move on. That is the moment that matters most. Instead of the trash, send wearable sneakers where they can keep being used and fund a cause at the same time." },
       { type: "h2", text: "Close the loop with ProjectKix" },
-      { type: "p", text: "Recycling your old sneakers is the final, easy step in a sustainable footwear habit. Request a free bag and give your shoes a second life instead of a landfill." },
+      { type: "p", spans: ["Recycling your old sneakers is the final, easy step in a sustainable footwear habit. ", { to: "/contribute", label: "Request a donation bag" }, " and give your shoes a second life instead of a landfill."] },
     ],
     faqs: [
       { q: "Is it really greener to keep old shoes longer?", a: "Yes. Extending a product's life avoids the materials and emissions needed to manufacture a replacement." },
@@ -296,7 +302,7 @@ export const articles: Article[] = [
         "Waste is kept out of landfills throughout.",
       ] },
       { type: "h2", text: "Step 4: Real-world impact" },
-      { type: "p", text: "The end result is not abstract. It shows up as equipment, access, and opportunity for athletes, and as a measurable reduction in footwear waste. Your closet clean-out becomes someone else's chance to play." },
+      { type: "p", spans: ["The end result is not abstract. It shows up as equipment, access, and opportunity for athletes, and as a measurable reduction in footwear waste. Ready to start? You can ", { to: "/contribute", label: "donate shoes" }, " in just a few minutes."] },
     ],
     faqs: [
       { q: "Do you sell the donated sneakers?", a: "The model keeps wearable footwear in circulation and turns it into funding that supports adaptive sports and partner causes." },
@@ -329,7 +335,7 @@ export const articles: Article[] = [
       { type: "h2", text: "Step 4: Celebrate and repeat" },
       { type: "p", text: "When the drive wraps, share the total and the impact it created. Recognize your top contributors, thank everyone who took part, and consider making it an annual tradition." },
       { type: "h2", text: "Ready to start?" },
-      { type: "p", text: "Whether you represent a school, gym, company, or community group, we will help you launch a drive that runs smoothly and makes a real difference." },
+      { type: "p", spans: ["Whether you represent a school, gym, company, or community group, you can ", { to: "/partners", label: "partner with ProjectKix" }, " to launch a drive, or ", { to: "/contact", label: "contact us" }, " with any questions."] },
     ],
     faqs: [
       { q: "Who can host a shoe drive?", a: "Anyone. Schools, gyms, workplaces, teams, faith groups, and community organizations all run successful drives." },
@@ -341,11 +347,18 @@ export const articles: Article[] = [
 
 const WORDS_PER_MINUTE = 200;
 
+function blockText(block: Block): string {
+  if (block.type === "ul") return block.items.join(" ");
+  if (block.type === "h2") return block.text;
+  if (block.spans) return block.spans.map((s) => (typeof s === "string" ? s : s.label)).join(" ");
+  return block.text ?? "";
+}
+
 export function readingMinutes(article: Article): number {
-  const words = article.body.reduce((count, block) => {
-    if (block.type === "ul") return count + block.items.join(" ").split(/\s+/).length;
-    return count + block.text.split(/\s+/).length;
-  }, 0);
+  const words = article.body.reduce(
+    (count, block) => count + blockText(block).split(/\s+/).filter(Boolean).length,
+    0,
+  );
   const faqWords = article.faqs.reduce(
     (count, f) => count + (f.q + " " + f.a).split(/\s+/).length,
     0,
