@@ -55,6 +55,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     // (e.g. "https://projectkix.com"); otherwise fall back to a relative path.
     const siteUrl = (import.meta.env.VITE_SITE_URL ?? "").replace(/\/$/, "");
     const ogImage = `${siteUrl}/og-image.png`;
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: "ProjectKix",
+      alternateName: "ProjectKix™",
+      url: siteUrl || "/",
+      logo: `${siteUrl}/favicon.svg`,
+      description:
+        "ProjectKix collects and recycles gently used sneakers to fund disabled athletes, charities, and a greener planet.",
+      sameAs: [
+        "https://www.facebook.com/ProjectKixSneakers/",
+        "https://www.instagram.com/projectkixsneakers/",
+      ],
+    };
     return {
     meta: [
       { charSet: "utf-8" },
@@ -72,7 +86,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:title", content: "ProjectKix™ — Give your sneakers a new purpose" },
       { name: "twitter:description", content: "ProjectKix collects and recycles gently used sneakers to fund disabled athletes nationwide." },
       { property: "og:image", content: ogImage },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "ProjectKix — give your sneakers a new purpose" },
       { name: "twitter:image", content: ogImage },
+      { name: "twitter:image:alt", content: "ProjectKix — give your sneakers a new purpose" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(jsonLd),
+      },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -110,7 +134,7 @@ function RootComponent() {
       <div className="min-h-screen flex flex-col bg-canvas">
         <a href="#main" className="skip-link">Skip to content</a>
         <Nav />
-        <main id="main" className="flex-1"><Outlet /></main>
+        <main id="main" tabIndex={-1} className="flex-1 outline-none"><Outlet /></main>
         <Footer />
         <Mascot />
       </div>
