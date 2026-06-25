@@ -64,6 +64,23 @@ html, body {
   &[data-status="active"] { color: #E63950; font-weight: 600; }
 }
 
+@utility skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 100;
+  background-color: #111;
+  color: #fff;
+  font-weight: 600;
+  padding: 0.6rem 1.1rem;
+  border-radius: 9999px;
+  transition: top .2s;
+  &:focus { top: 1rem; outline: 3px solid #E63950; outline-offset: 2px; }
+}
+
+html { scroll-behavior: smooth; }
+
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   * { animation: none !important; transition: none !important; }
 }

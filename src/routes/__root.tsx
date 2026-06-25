@@ -49,23 +49,33 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  head: () => {
+    // Local OG/Twitter card image (no external dependency). Social scrapers
+    // require an absolute URL, so prefix with VITE_SITE_URL when it's set
+    // (e.g. "https://projectkix.com"); otherwise fall back to a relative path.
+    const siteUrl = (import.meta.env.VITE_SITE_URL ?? "").replace(/\/$/, "");
+    const ogImage = `${siteUrl}/og-image.png`;
+    return {
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "theme-color", content: "#E63950" },
       { title: "ProjectKix™ — Give your sneakers a new purpose" },
       { name: "description", content: "ProjectKix collects and recycles gently used sneakers to fund disabled athletes nationwide." },
       { property: "og:title", content: "ProjectKix™ — Give your sneakers a new purpose" },
       { property: "og:description", content: "ProjectKix collects and recycles gently used sneakers to fund disabled athletes nationwide." },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "ProjectKix™ — Give your sneakers a new purpose" },
       { name: "twitter:description", content: "ProjectKix collects and recycles gently used sneakers to fund disabled athletes nationwide." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/22568ce6-fc85-4d46-8c6b-b628853f003f/id-preview-d6bc1dee--31f6c235-177c-4986-b6f8-63078ca61a78.lovable.app-1782323006419.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/22568ce6-fc85-4d46-8c6b-b628853f003f/id-preview-d6bc1dee--31f6c235-177c-4986-b6f8-63078ca61a78.lovable.app-1782323006419.png" },
+      { property: "og:image", content: ogImage },
+      { name: "twitter:image", content: ogImage },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/favicon.svg" },
+      { rel: "manifest", href: "/site.webmanifest" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
@@ -73,7 +83,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&display=swap",
       },
     ],
-  }),
+    };
+  },
   shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
@@ -94,8 +105,9 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="min-h-screen flex flex-col bg-canvas">
+        <a href="#main" className="skip-link">Skip to content</a>
         <Nav />
-        <main className="flex-1"><Outlet /></main>
+        <main id="main" className="flex-1"><Outlet /></main>
         <Footer />
         <Mascot />
       </div>
