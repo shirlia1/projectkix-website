@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Recycle, HeartHandshake, Wallet, Globe, Facebook, Instagram, Linkedin, Package, ShoppingBag, Truck } from "lucide-react";
+import { ArrowRight, Recycle, HeartHandshake, Wallet, Globe, Facebook, Instagram, Package, ShoppingBag, Truck } from "lucide-react";
+import { canonical } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -7,6 +8,7 @@ export const Route = createFileRoute("/")({
       { title: "ProjectKix — Your Unwanted Sneakers Can Help Raise Funds & Change Lives" },
       { name: "description", content: "ProjectKix turns your old sneakers into funds for charities, organizations and disabled athletes — while keeping waste out of landfills." },
     ],
+    links: canonical("/"),
   }),
   component: HomePage,
 });
@@ -27,8 +29,6 @@ function HomePage() {
             <div className="mt-6 flex items-center gap-3">
               <a href="https://www.facebook.com/ProjectKixSneakers/" target="_blank" rel="noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white card-soft inline-flex items-center justify-center text-ink hover:text-brand"><Facebook size={18} /></a>
               <a href="https://www.instagram.com/projectkixsneakers/" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white card-soft inline-flex items-center justify-center text-ink hover:text-brand"><Instagram size={18} /></a>
-              <a href="#" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-white card-soft inline-flex items-center justify-center text-ink hover:text-brand"><Linkedin size={18} /></a>
-              <a href="#" aria-label="TikTok" className="w-10 h-10 rounded-full bg-white card-soft inline-flex items-center justify-center text-ink hover:text-brand text-xs font-bold">TT</a>
             </div>
             <div className="mt-8">
               <Link to="/contribute" className="btn-red">Get started <ArrowRight size={18} /></Link>

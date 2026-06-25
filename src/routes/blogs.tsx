@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { canonical } from "@/lib/seo";
 
 export const Route = createFileRoute("/blogs")({
   head: () => ({
@@ -6,6 +7,7 @@ export const Route = createFileRoute("/blogs")({
       { title: "Blogs — ProjectKix" },
       { name: "description", content: "Stories from the ProjectKix community: athletes, drives, partnerships and impact." },
     ],
+    links: canonical("/blogs"),
   }),
   component: BlogsPage,
 });
@@ -32,7 +34,6 @@ function BlogsPage() {
                 <div className="text-xs text-body uppercase tracking-wider">{p.date}</div>
                 <h2 className="mt-2 text-xl font-bold text-ink">{p.title}</h2>
                 <p className="mt-2 text-body">{p.excerpt}</p>
-                <a href="#" className="mt-4 inline-flex items-center gap-1 text-brand font-semibold">→ Read more</a>
               </div>
             </article>
           ))}

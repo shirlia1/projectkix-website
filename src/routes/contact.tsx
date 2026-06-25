@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { CheckCircle2, Loader2 } from "lucide-react";
 import { sendContactMessage } from "@/lib/forms";
+import { canonical } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -9,6 +10,7 @@ export const Route = createFileRoute("/contact")({
       { title: "Contact Us — ProjectKix" },
       { name: "description", content: "Start your first or next sneaker drive. We answer all email requests within 2 business days." },
     ],
+    links: canonical("/contact"),
   }),
   component: ContactPage,
 });
