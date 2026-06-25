@@ -1,19 +1,17 @@
 # Gallery images
 
-The homepage gallery loads these files directly from `/gallery/...`. Upload the
-five images into **this folder** with these **exact, case-sensitive** names:
+The homepage gallery loads these files directly from `/gallery/...`. They are
+optimized WebP (converted from the originals — ~11 MB of PNG/JPG down to under
+1 MB total). Referenced in `src/routes/index.tsx`.
 
-| File name (must match exactly) | Used for |
+| File | Used for |
 | --- | --- |
-| `booth.jpg` | ProjectKix donation booth at LA Fitness |
-| `champions.png` | NWBA wheelchair basketball championship team |
-| `lafitness.png` | ProjectKix team with LA Fitness staff |
-| `warriors.png` | Wounded Warrior athletes |
-| `certificate.png` | Certificate of appreciation presentation |
+| `booth.webp` | ProjectKix donation booth at LA Fitness |
+| `champions.webp` | NWBA wheelchair basketball championship team |
+| `lafitness.webp` | ProjectKix team with LA Fitness staff |
+| `warriors.webp` | Wounded Warrior athletes |
+| `certificate.webp` | Certificate of appreciation presentation |
 
-Notes:
-- Keep the extensions exactly as shown (`.jpg` vs `.png`) — Linux/Vercel are
-  case- and extension-sensitive.
-- No spaces or renaming. Once these files exist here, the gallery works on
-  Vercel with no further changes.
-- These files are referenced in `src/routes/index.tsx`.
+To replace an image, drop in a new file with the same name (WebP recommended;
+keep widths around 1200px for the gallery). The hero banner image lives at
+`public/hero.webp`.

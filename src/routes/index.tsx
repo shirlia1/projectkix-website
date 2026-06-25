@@ -54,7 +54,7 @@ function HomePage() {
         <div className="relative h-[420px] sm:h-[460px] bg-ink overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center opacity-40"
-            style={{ backgroundImage: "url('/hero.jpg')" }}
+            style={{ backgroundImage: "url('/hero.webp')" }}
           />
           <div className="relative max-w-4xl mx-auto h-full flex flex-col justify-center items-center text-center px-6 text-white">
             <h2 className="text-3xl sm:text-5xl font-extrabold">A Simple Way to Make a Big Impact</h2>
@@ -98,14 +98,14 @@ function HomePage() {
           </div>
           <div className="grid gap-5">
             {[
-              { src: "/gallery/booth.jpg", alt: "ProjectKix donation booth at LA Fitness" },
-              { src: "/gallery/champions.png", alt: "NWBA wheelchair basketball championship team" },
-              { src: "/gallery/lafitness.png", alt: "ProjectKix team with LA Fitness staff" },
-              { src: "/gallery/warriors.png", alt: "Wounded Warrior athletes" },
-              { src: "/gallery/certificate.png", alt: "Certificate of appreciation presentation" },
-            ].map(({ src, alt }, i) => (
+              { src: "/gallery/booth.webp", alt: "ProjectKix donation booth at LA Fitness", w: 1200, h: 1600 },
+              { src: "/gallery/champions.webp", alt: "NWBA wheelchair basketball championship team", w: 1200, h: 1087 },
+              { src: "/gallery/lafitness.webp", alt: "ProjectKix team with LA Fitness staff", w: 998, h: 1236 },
+              { src: "/gallery/warriors.webp", alt: "Wounded Warrior athletes", w: 1200, h: 1246 },
+              { src: "/gallery/certificate.webp", alt: "Certificate of appreciation presentation", w: 970, h: 1222 },
+            ].map(({ src, alt, w, h }, i) => (
               <div key={i} className="overflow-hidden rounded-3xl card-soft bg-white">
-                <img src={src} alt={alt} className="w-full h-auto object-contain" loading="lazy" />
+                <img src={src} alt={alt} width={w} height={h} className="w-full h-auto object-contain" loading="lazy" decoding="async" />
               </div>
             ))}
           </div>

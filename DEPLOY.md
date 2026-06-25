@@ -4,6 +4,29 @@ This is a [TanStack Start](https://tanstack.com/start) app (React 19 + Vite +
 Nitro) managed through Lovable. It server-renders, so it deploys as a Vercel
 Function rather than a static site.
 
+## Production audit notes
+
+- **Images:** optimized to WebP — the gallery + hero dropped from ~11 MB to
+  ~0.9 MB total. `<img>` tags carry explicit `width`/`height` (avoids layout
+  shift) and `loading="lazy"` / `decoding="async"`.
+- **Security headers:** set in `vite.config.ts` via Nitro `routeRules` (Nitro
+  writes them into the Vercel output config; `vercel.json` `headers` are ignored
+  once Build Output API is used): `X-Content-Type-Options`, `X-Frame-Options`,
+  `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`. No CSP
+  yet — it needs live testing against Google Fonts + inline styles; add one once
+  you can verify it in the browser.
+- **Caching:** fingerprinted `/assets/**` are served `immutable`, 1 year.
+- **Needs your production domain** (set `VITE_SITE_URL`, then redeploy):
+  - `og:image` / `og:url` become absolute (social-share previews render).
+  - `public/sitemap.xml` `<loc>` entries and the `Sitemap:` line in
+    `public/robots.txt` should be absolute URLs (the protocol requires it).
+    Replace the leading `/` with `https://your-domain` in those two files.
+- **Known placeholders (content decisions, not bugs):** the LinkedIn/TikTok
+  social icons and the demo blog "Read more" links point to `#`. Add real URLs
+  (or remove the icons) when you have them.
+- **Still to upload (optional):** `public/og-image.png` (~1200×630) for the
+  social-share card.
+
 ## One-time setup
 
 1. Push this branch to GitHub (already connected to Lovable).
