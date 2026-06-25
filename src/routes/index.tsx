@@ -1,10 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Recycle, HeartHandshake, Wallet, Globe, Facebook, Instagram, Linkedin, Package, ShoppingBag, Truck } from "lucide-react";
-import booth from "@/assets/gallery/booth.jpg.asset.json";
-import champions from "@/assets/gallery/champions.png.asset.json";
-import lafitness from "@/assets/gallery/lafitness.png.asset.json";
-import warriors from "@/assets/gallery/warriors.png.asset.json";
-import certificate from "@/assets/gallery/certificate.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -103,11 +98,11 @@ function HomePage() {
           </div>
           <div className="grid gap-5">
             {[
-              { src: booth.url, alt: "ProjectKix donation booth at LA Fitness" },
-              { src: champions.url, alt: "NWBA wheelchair basketball championship team" },
-              { src: lafitness.url, alt: "ProjectKix team with LA Fitness staff" },
-              { src: warriors.url, alt: "Wounded Warrior athletes" },
-              { src: certificate.url, alt: "Certificate of appreciation presentation" },
+              { src: "/gallery/booth.jpg", alt: "ProjectKix donation booth at LA Fitness" },
+              { src: "/gallery/champions.png", alt: "NWBA wheelchair basketball championship team" },
+              { src: "/gallery/lafitness.png", alt: "ProjectKix team with LA Fitness staff" },
+              { src: "/gallery/warriors.png", alt: "Wounded Warrior athletes" },
+              { src: "/gallery/certificate.png", alt: "Certificate of appreciation presentation" },
             ].map(({ src, alt }, i) => (
               <div key={i} className="overflow-hidden rounded-3xl card-soft bg-white">
                 <img src={src} alt={alt} className="w-full h-auto object-contain" loading="lazy" />

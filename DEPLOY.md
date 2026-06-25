@@ -26,24 +26,13 @@ Function rather than a static site.
 
 ## Gallery images
 
-The five gallery images are stored in Lovable, **not committed to this repo**.
-The `src/assets/gallery/*.asset.json` files are manifests, not images, and they
-point at the Lovable-only path `/__l5e/assets-v1/<assetId>/<file>` — which exists
-on Lovable's hosting but **not on Vercel**, so the images 404 there.
+The homepage gallery is fully self-contained: `src/routes/index.tsx` references
+the images directly from `public/gallery/` (e.g. `/gallery/booth.jpg`), with no
+dependency on Lovable or R2.
 
-`vite.config.ts` fixes this by proxying that path to the project's public R2
-bucket via a Nitro `proxy` route rule (Nitro compiles it into a Vercel CDN
-rewrite at build time). No component or styling changes were needed.
-
-**To make the deployment fully self-contained** (recommended long-term, removes
-the dependency on Lovable storage):
-
-1. Download the five images from Lovable (or your originals).
-2. Put them in `public/gallery/` keeping the names: `booth.jpg`,
-   `champions.png`, `lafitness.png`, `warriors.png`, `certificate.png`.
-3. In `src/routes/index.tsx`, replace the `*.asset.json` imports with the public
-   paths, e.g. `src="/gallery/booth.jpg"`.
-4. Remove the `routeRules` proxy block from `vite.config.ts`.
+Drop these five files into `public/gallery/` (exact, case-sensitive names):
+`booth.jpg`, `champions.png`, `lafitness.png`, `warriors.png`,
+`certificate.png`. See `public/gallery/README.md` for what each one is.
 
 ## Environment variables
 
