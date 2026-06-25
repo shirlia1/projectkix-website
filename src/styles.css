@@ -95,6 +95,22 @@ html, body {
   &:focus { top: 1rem; outline: 3px solid #E63950; outline-offset: 2px; }
 }
 
+/* Conversion popup (Radix Dialog) entrance animation. Disabled for reduced
+   motion by the global rule below. */
+@keyframes pk-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pk-pop-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.96); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+.pk-popup-overlay { animation: pk-fade-in .25s ease-out; }
+.pk-popup-content {
+  transform: translate(-50%, -50%);
+  animation: pk-pop-in .3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) {
