@@ -16,7 +16,7 @@ type CountUpProps = {
  */
 export function CountUp({
   to,
-  duration = 1.6,
+  duration = 2.2,
   prefix = "",
   suffix = "",
   decimals = 0,

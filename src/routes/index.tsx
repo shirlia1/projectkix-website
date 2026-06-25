@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Recycle, HeartHandshake, Wallet, Globe, Facebook, Instagram, Package, ShoppingBag, Truck } from "lucide-react";
 import { canonical } from "@/lib/seo";
 import { Reveal } from "@/components/motion/Reveal";
+import { EntranceGroup, EntranceItem } from "@/components/motion/Entrance";
+import { motion, useReducedMotion } from "motion/react";
 import { Stats } from "@/components/sections/Stats";
 import { TrustStrip } from "@/components/sections/TrustStrip";
 import { Testimonials } from "@/components/sections/Testimonials";
@@ -24,21 +26,27 @@ function HomePage() {
       {/* HERO */}
       <section className="px-4 pt-10 pb-20">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="font-extrabold text-ink leading-[1.05] text-4xl sm:text-5xl lg:text-6xl tracking-tight">
-              Your Unwanted Sneakers Can <span className="text-brand">Help Raise Funds</span> & Change Lives
-            </h1>
-            <p className="mt-6 text-body text-lg max-w-xl">
-              Give your unwanted sneakers a second chance. At ProjectKix we turn your old footwear into funds for your company, organization, affiliation, or charity of your choice, while keeping waste out of landfills. It's simple: your sneakers create opportunities for people in need, support global causes, or boost your income.
-            </p>
-            <div className="mt-6 flex items-center gap-3">
-              <a href="https://www.facebook.com/ProjectKixSneakers/" target="_blank" rel="noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white card-soft inline-flex items-center justify-center text-ink hover:text-brand"><Facebook size={18} /></a>
-              <a href="https://www.instagram.com/projectkixsneakers/" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white card-soft inline-flex items-center justify-center text-ink hover:text-brand"><Instagram size={18} /></a>
-            </div>
-            <div className="mt-8">
-              <Link to="/contribute" className="btn-red">Get started <ArrowRight size={18} /></Link>
-            </div>
-          </div>
+          <EntranceGroup>
+            <EntranceItem>
+              <h1 className="font-extrabold text-ink leading-[1.05] text-4xl sm:text-5xl lg:text-6xl tracking-tight">
+                Your Unwanted Sneakers Can <span className="text-brand">Help Raise Funds</span> & Change Lives
+              </h1>
+            </EntranceItem>
+            <EntranceItem className="mt-6">
+              <p className="text-body text-lg max-w-xl">
+                Give your unwanted sneakers a second chance. At ProjectKix we turn your old footwear into funds for your company, organization, affiliation, or charity of your choice, while keeping waste out of landfills. It's simple: your sneakers create opportunities for people in need, support global causes, or boost your income.
+              </p>
+            </EntranceItem>
+            <EntranceItem className="mt-6">
+              <div className="flex items-center gap-3">
+                <a href="https://www.facebook.com/ProjectKixSneakers/" target="_blank" rel="noreferrer" aria-label="Facebook" className="w-10 h-10 rounded-full bg-white card-soft inline-flex items-center justify-center text-ink transition-all hover:text-brand hover:-translate-y-0.5"><Facebook size={18} /></a>
+                <a href="https://www.instagram.com/projectkixsneakers/" target="_blank" rel="noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white card-soft inline-flex items-center justify-center text-ink transition-all hover:text-brand hover:-translate-y-0.5"><Instagram size={18} /></a>
+              </div>
+            </EntranceItem>
+            <EntranceItem className="mt-8">
+              <Link to="/contribute" className="btn-red group">Get started <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" /></Link>
+            </EntranceItem>
+          </EntranceGroup>
           <HeroIllustration />
         </div>
       </section>
@@ -79,9 +87,9 @@ function HomePage() {
             { icon: Wallet, title: "Earn Money", desc: "Find opportunities for people to contribute their sneakers." },
           ].map(({ icon: Icon, title, desc }, i) => (
             <Reveal key={title} delay={i * 0.08} className="h-full">
-              <div className="card-soft card-hover overflow-hidden h-full">
+              <div className="group card-soft card-hover overflow-hidden h-full">
                 <div className="bg-brand py-8 flex justify-center">
-                  <Icon size={48} className="text-white" />
+                  <Icon size={48} className="text-white transition-transform duration-300 group-hover:scale-110" />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-ink">{title}</h3>
@@ -119,7 +127,7 @@ function HomePage() {
             ].map(({ src, alt, w, h }, i) => (
               <Reveal key={i} delay={i * 0.06}>
                 <div className="group overflow-hidden rounded-3xl card-soft card-hover bg-white">
-                  <img src={src} alt={alt} width={w} height={h} className="w-full h-auto object-contain transition-transform duration-500 ease-out group-hover:scale-[1.04]" loading="lazy" decoding="async" />
+                  <img src={src} alt={alt} width={w} height={h} className="w-full h-auto object-contain transition-transform duration-[600ms] ease-out group-hover:scale-[1.07]" loading="lazy" decoding="async" />
                 </div>
               </Reveal>
             ))}
@@ -143,8 +151,8 @@ function HomePage() {
               { icon: Truck, title: "Drop and forget", desc: "Any FedEx location works. We take it from there." },
             ].map(({ icon: Icon, title, desc }, i) => (
               <Reveal key={title} delay={i * 0.08} className="h-full">
-                <div className="card-soft card-hover p-8 text-left h-full">
-                  <div className="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center text-brand">
+                <div className="group card-soft card-hover p-8 text-left h-full">
+                  <div className="w-16 h-16 rounded-full bg-brand/10 flex items-center justify-center text-brand transition-all duration-300 group-hover:bg-brand group-hover:text-white group-hover:scale-110">
                     <Icon size={32} />
                   </div>
                   <div className="mt-4 text-sm font-bold text-brand">STEP {i + 1}</div>
@@ -174,27 +182,37 @@ function Block({ title, body }: { title: string; body: string }) {
 }
 
 function HeroIllustration() {
+  const reduce = useReducedMotion();
   const items = [
     { icon: Wallet, label: "Raise Funds" },
     { icon: Recycle, label: "Recycle" },
     { icon: HeartHandshake, label: "Reuse" },
     { icon: Globe, label: "Global" },
   ];
-  return (
-    <div className="relative">
-      <div className="aspect-square max-w-md mx-auto card-soft bg-gradient-to-br from-brand/10 to-white p-8 flex flex-col items-center">
-        <div className="text-7xl">🎒</div>
-        <div className="mt-2 text-sm font-bold tracking-widest text-ink">PROJECTKIX BAG</div>
-        <div className="my-4 w-1 h-12 bg-brand rounded-full" />
-        <div className="grid grid-cols-2 gap-4 w-full">
-          {items.map(({ icon: Icon, label }) => (
-            <div key={label} className="bg-white rounded-2xl p-4 flex flex-col items-center shadow-sm">
-              <div className="w-10 h-10 rounded-full bg-brand text-white flex items-center justify-center"><Icon size={20} /></div>
-              <div className="mt-2 text-xs font-bold text-ink">{label}</div>
-            </div>
-          ))}
-        </div>
+  const content = (
+    <div className="aspect-square max-w-md mx-auto card-soft bg-gradient-to-br from-brand/10 to-white p-8 flex flex-col items-center">
+      <div className="text-7xl">🎒</div>
+      <div className="mt-2 text-sm font-bold tracking-widest text-ink">PROJECTKIX BAG</div>
+      <div className="my-4 w-1 h-12 bg-brand rounded-full" />
+      <div className="grid grid-cols-2 gap-4 w-full">
+        {items.map(({ icon: Icon, label }) => (
+          <div key={label} className="group bg-white rounded-2xl p-4 flex flex-col items-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+            <div className="w-10 h-10 rounded-full bg-brand text-white flex items-center justify-center transition-transform duration-300 group-hover:scale-110"><Icon size={20} /></div>
+            <div className="mt-2 text-xs font-bold text-ink">{label}</div>
+          </div>
+        ))}
       </div>
     </div>
+  );
+  if (reduce) return <div className="relative">{content}</div>;
+  return (
+    <motion.div
+      className="relative"
+      initial={{ opacity: 0, scale: 0.94, y: 18 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {content}
+    </motion.div>
   );
 }

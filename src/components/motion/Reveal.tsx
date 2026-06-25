@@ -11,20 +11,20 @@ type RevealProps = {
 };
 
 /**
- * Lightweight scroll-reveal: fades + slides content in once when it enters the
- * viewport. Animates transform/opacity only (GPU-friendly) and is fully skipped
- * when the user prefers reduced motion.
+ * Scroll-reveal: fades + slides + subtly scales content in once when it enters
+ * the viewport. Transform/opacity only (GPU-friendly, mobile-safe) and fully
+ * skipped when the user prefers reduced motion.
  */
-export function Reveal({ children, className, delay = 0, y = 18 }: RevealProps) {
+export function Reveal({ children, className, delay = 0, y = 32 }: RevealProps) {
   const reduce = useReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 0, y, scale: 0.985 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.div>
