@@ -5,7 +5,8 @@
   --color-brand-dark: #c52d42;
   --color-ink: #2D2A2B;
   --color-jet: #111111;
-  --color-body: #6E6E73;
+  /* Darkened from #6E6E73 so body text clears WCAG AA (4.5:1) on the canvas bg. */
+  --color-body: #5C5C61;
   --color-canvas: #F2F3F7;
   --color-surface: #FFFFFF;
   --font-sans: "Poppins", system-ui, sans-serif;
@@ -17,6 +18,7 @@ html, body {
   color: #2D2A2B;
   font-family: "Poppins", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  color-scheme: light;
 }
 
 @utility btn-red {
@@ -61,6 +63,7 @@ html, body {
   padding: 0.4rem 0.2rem;
   transition: color .2s;
   &:hover { color: #E63950; }
+  &:focus-visible { outline: 3px solid #E63950; outline-offset: 2px; border-radius: 6px; }
   &[data-status="active"] { color: #E63950; font-weight: 600; }
 }
 
